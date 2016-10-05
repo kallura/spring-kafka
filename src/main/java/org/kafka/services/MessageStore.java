@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class MessageStore {
@@ -15,7 +16,7 @@ public class MessageStore {
         records.add(record);
     }
 
-    public BlockingQueue<ConsumerRecord<Integer, String>> records() {
-        return records;
+    public ConsumerRecord<Integer, String> record() throws InterruptedException {
+        return records.poll(10, TimeUnit.SECONDS);
     }
 }

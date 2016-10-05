@@ -17,9 +17,8 @@ public class MessageConsumerListener {
     private MessageStore messageStore;
 
     @KafkaListener(id = "defaultTopic", topics = "stringTopic")
-    public void listenDefault(ConsumerRecord<Integer, String> record) {
+    public void listen(ConsumerRecord<Integer, String> record) {
         messageStore.add(record);
-        logger.info("[listen] -> :" + record.topic() + ". Message : " + record.value() +
-                " was received!. Offset: " + record.offset());
+        logger.info("[listen] -> topic: {}; message: {}; offset: {}", record.topic(), record.value(), record.offset());
     }
 }

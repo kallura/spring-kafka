@@ -35,9 +35,8 @@ public class ProducerServiceTest {
     @Test
     public void testSendDefaultWithPartition() throws Exception {
         producerService.sendDefault(0, 1, "message1");
-        BlockingQueue<ConsumerRecord<Integer, String>> records = messageStore.records();
-        assertNotNull(records);
-        ConsumerRecord<Integer, String> record = records.poll(10, TimeUnit.SECONDS);
+        ConsumerRecord<Integer, String> record = messageStore.record();
+        assertNotNull(record);
         assertThat(record).has(key(1));
         assertThat(record).has(partition(0));
         assertThat(record).has(value("message1"));
@@ -46,9 +45,8 @@ public class ProducerServiceTest {
     @Test
     public void testSendDefault() throws Exception {
         producerService.sendDefault(2, "message2");
-        BlockingQueue<ConsumerRecord<Integer, String>> records = messageStore.records();
-        assertNotNull(records);
-        ConsumerRecord<Integer, String> record = records.poll(10, TimeUnit.SECONDS);
+        ConsumerRecord<Integer, String> record = messageStore.record();
+        assertNotNull(record);
         assertThat(record).has(key(2));
         assertThat(record).has(value("message2"));
     }
@@ -56,9 +54,8 @@ public class ProducerServiceTest {
     @Test
     public void testSend() throws Exception {
         producerService.send("stringTopic", 3, "message3");
-        BlockingQueue<ConsumerRecord<Integer, String>> records = messageStore.records();
-        assertNotNull(records);
-        ConsumerRecord<Integer, String> record = records.poll(10, TimeUnit.SECONDS);
+        ConsumerRecord<Integer, String> record = messageStore.record();
+        assertNotNull(record);
         assertThat(record).has(key(3));
         assertThat(record).has(value("message3"));
 
@@ -67,9 +64,8 @@ public class ProducerServiceTest {
     @Test
     public void testSendWithPartition() throws Exception {
         producerService.send("stringTopic", 0, 4, "message4");
-        BlockingQueue<ConsumerRecord<Integer, String>> records = messageStore.records();
-        assertNotNull(records);
-        ConsumerRecord<Integer, String> record = records.poll(10, TimeUnit.SECONDS);
+        ConsumerRecord<Integer, String> record = messageStore.record();
+        assertNotNull(record);
         assertThat(record).has(key(4));
         assertThat(record).has(partition(0));
         assertThat(record).has(value("message4"));
@@ -92,11 +88,9 @@ public class ProducerServiceTest {
                 return new MessageHeaders(headers);
             }
         };
-
         producerService.send(message);
-        BlockingQueue<ConsumerRecord<Integer, String>> records = messageStore.records();
-        assertNotNull(records);
-        ConsumerRecord<Integer, String> record = records.poll(10, TimeUnit.SECONDS);
+        ConsumerRecord<Integer, String> record = messageStore.record();
+        assertNotNull(record);
         assertThat(record).has(key(5));
         assertThat(record).has(partition(0));
         assertThat(record).has(value("message5"));
@@ -105,9 +99,8 @@ public class ProducerServiceTest {
     @Test
     public void testSendWithCustomCallBack() throws Exception {
         producerService.sendWithCustomCallBack("stringTopic", 6, "message6");
-        BlockingQueue<ConsumerRecord<Integer, String>> records = messageStore.records();
-        assertNotNull(records);
-        ConsumerRecord<Integer, String> record = records.poll(10, TimeUnit.SECONDS);
+        ConsumerRecord<Integer, String> record = messageStore.record();
+        assertNotNull(record);
         assertThat(record).has(key(6));
         assertThat(record).has(value("message6"));
     }

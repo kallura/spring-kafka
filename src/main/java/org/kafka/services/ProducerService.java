@@ -43,13 +43,12 @@ public class ProducerService {
         future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {
             @Override
             public void onSuccess(SendResult<Integer, String> result) {
-                logger.info("Custom call back: Message with key: " + key + " was successful send to topic : " + topic);
+                logger.info("[onSuccess] -> topic : {}, key: {}", topic, key);
             }
 
             @Override
             public void onFailure(Throwable ex) {
-                logger.error("Custom call back:Message with key: " + key + " wasn't send to topic : " + topic +
-                        ". Error: " + ex.getMessage(), ex);
+                logger.error("[onFailure] -> topic : {}, key: {}, error: {}", topic, key, ex.getMessage(), ex);
             }
         });
         return future;
