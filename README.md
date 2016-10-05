@@ -6,11 +6,11 @@
 ###### 2. Go to your Kafka installation directory C:\kafka_2.11-0.9.0.0\
 ###### 3. Open a command prompt here. Now type: 
 ```
-bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties and press Enter.
+bin\windows\zookeeper-server-start.bat config\zookeeper.properties and press Enter.
 ```
 ###### 4. Open a command prompt here. Now type: 
 ```
-bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties and press Enter.
+bin\windows\kafka-server-start.bat config\server.properties and press Enter.
 ```
 ###### 5. Open a command prompt here. Now type :
 ```
